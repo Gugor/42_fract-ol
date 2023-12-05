@@ -14,7 +14,7 @@ t_complex sum_complex(t_complex z1, t_complex z2)
 }
 
 /**
- * Squarer two complex numbers 
+ * Square two complex numbers 
  *
  */
 t_complex square_complex(t_complex z)

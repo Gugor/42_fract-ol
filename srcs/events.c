@@ -13,7 +13,11 @@ const uint32_t hexcolors[] = {
 void close_fractol(mlx_key_data_t keydata, t_fractal *fractal)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
 		mlx_terminate(fractal->mlx);
+		exit(EXIT_SUCCESS);
+	}
+
 }
 
 /**
@@ -32,19 +36,6 @@ void scrollmouse(double xdelta, double ydelta, void *param)
 	oldzoom = fractal->zoom;
 	xdelta = 0.0;
 	mlx_get_mouse_pos(fractal->mlx, &mouse_x, &mouse_y);
-	printf(":: Mouse scrolling..\n");
-	printf(":: MouseX: %d | MouseY: %d\n", mouse_x, mouse_y);
-	/**
-	 *		_______800_______
-	 *		|	| 100		|
-	 *		|––	X 			|
-	 * 800	|200			|
-	 *		|				|
-	 *		|				|
-	 *		_________________
-	 *		side_ratio_x = (mouse - (width / 2)) / width
-	 *		pixels_distance = (width / oldzoom) - (width / newzoom)
-	 */
 	if (ydelta > 0)
 	{
 		fractal->zoom *= 1.0 - mod; 
