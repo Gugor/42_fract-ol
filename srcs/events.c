@@ -24,18 +24,38 @@ void scrollmouse(double xdelta, double ydelta, void *param)
 {
 	t_fractal *fractal;
 	double mod = 0.05;
+	double oldzoom;
+	int32_t mouse_x;
+	int32_t mouse_y;
 
 	fractal = (t_fractal *)param;
+	oldzoom = fractal->zoom;
 	xdelta = 0.0;
+	mlx_get_mouse_pos(fractal->mlx, &mouse_x, &mouse_y);
+	printf(":: Mouse scrolling..\n");
+	printf(":: MouseX: %d | MouseY: %d\n", mouse_x, mouse_y);
+	/**
+	 *		_______800_______
+	 *		|	| 100		|
+	 *		|––	X 			|
+	 * 800	|200			|
+	 *		|				|
+	 *		|				|
+	 *		_________________
+	 *		side_ratio_x = (mouse - (width / 2)) / width
+	 *		pixels_distance = (width / oldzoom) - (width / newzoom)
+	 */
 	if (ydelta > 0)
 	{
 		fractal->zoom *= 1.0 - mod; 
+		zoom_to_mouse(mouse_x, mouse_y, fractal);
 		fractal->offspeed *= 1.0 - mod;
 		fractal_render(fractal);
 	}
 	if (ydelta < 0)
 	{
 		fractal->zoom *= 1.0 + mod; 
+		zoom_to_mouse(mouse_x, mouse_y, fractal);
 		fractal->offspeed *= 1.0 + mod;
 		fractal_render(fractal);
 	}
@@ -49,25 +69,25 @@ static void move_fractal(mlx_key_data_t keydata, t_fractal *fractal)
 {
 	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
 	{
-		fractal->shift_y -= fractal->offspeed;
+		fractal->shift_y += fractal->offspeed;
 		fractal_render(fractal);
 		return ;
 	}
 	if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
 	{
-		fractal->shift_y += fractal->offspeed;
+		fractal->shift_y -= fractal->offspeed;
 		fractal_render(fractal);
 		return ;
 	}
 	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
 	{
-		fractal->shift_x += fractal->offspeed;
+		fractal->shift_x -= fractal->offspeed;
 		fractal_render(fractal);
 		return ;
 	}
 	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 	{
-		fractal->shift_x -= fractal->offspeed;
+		fractal->shift_x += fractal->offspeed;
 		fractal_render(fractal);
 		return ;
 	}
@@ -81,6 +101,7 @@ static uint32_t get_random_color()
 {
 	return (hexcolors[randomize(0,NUM_COLORS-1)]);
 }
+
 /**
  *   Shaffle color palette 
  *
@@ -98,6 +119,7 @@ static void shuffle_colors(mlx_key_data_t keydata, t_fractal *fractal)
 		return ;
 	}
 }
+
 /**
  * Change the precition of the fractal rendered
  *

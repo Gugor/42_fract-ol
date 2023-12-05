@@ -1,15 +1,5 @@
 #include "fractol.h"
 
-
-/**
- * Maps the a dimention into another by scaling it.
- * @linear interpolation  
-*/
-  double scale_between(double unscaled, double min_limit, double max_limit, double         min,     double max)
-  {
-      return((max_limit - min_limit) * (unscaled - min) / (max - min) +                min_limit);
-  }
-
 /**
  * Adds two complex numbers
  *

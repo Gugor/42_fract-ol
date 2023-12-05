@@ -123,11 +123,13 @@ void fractal_init(t_fractal *fractal);
 /* ... Render ... */
 void fractal_render(t_fractal *fractal);
 void refresh_image(t_fractal *fractal);
-/* ... Math Utils ... */
+/* ... Complex Numbers ... */
 t_complex sum_complex(t_complex z1, t_complex z2);
 t_complex square_complex(t_complex z);
 void print_complex(t_complex z);
+/* ... Math Utils ...*/
 double scale_between(double unscaled, double min_limit, double max_limit, double        min,     double max);
+void zoom_to_mouse(double x, double y, t_fractal *fractal);
 /* ... Randomize ... */
 void set_seed();
 int randomize(int min, int max);

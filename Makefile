@@ -30,7 +30,7 @@ LMLXFLAGS	:= -L$(MLX_DIR)/build -lmlx42 -ldl -lglfw -pthread -lm
 ## -L$(MLX) -lmlx -framework OpenGL -framework AppKit  -Wdeprecated-declarations
 
 # Files
-SRCS_FILES	= fractol.c math-utils.c render.c init.c events.c randomize.c
+SRCS_FILES	= fractol.c math-utils.c complex_nums.c render.c init.c events.c randomize.c
 INCS_FILES	= fractol.h libft.h ft_printf.h events.h
 
 #Route to Includes
