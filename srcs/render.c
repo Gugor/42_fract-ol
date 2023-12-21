@@ -13,6 +13,16 @@
 # include "fractol.h"
 
 /**
+ * Free memory and clear window
+ */
+int	ft_free(t_fractal *frac)
+{
+	if (frac && frac->mlx_win)
+		mlx_destroy_window(frac->mlx, frac->mlx_win);
+	exit (1);
+}
+
+/**
  * Select Fractal Type
  *
  */
