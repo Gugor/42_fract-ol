@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 13:01:08 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/21 16:49:59 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:28:46 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void  calculate_pixel(int x, int y, t_fractal *fractal)
 			mlx_put_pixel(fractal->img, x, y, color);	
 			return ;
 		}
-		mlx_put_pixel(fractal->img, x, y, hexcolors[fractal->colors[2]]);
+		mlx_put_pixel(fractal->img, x, y, g_hexcolors[fractal->colors[2]]);
 		iterations++;
 	}
 }

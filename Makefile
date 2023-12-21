@@ -50,7 +50,7 @@ $(OBJS): $(SRCS)
 
 # Target Compilation
 $(NAME) : $(MF) $(OBJS) $(INCS)  
-	$(CC) $(SRCS) $(CFLAGS) $(LMLXFLAGS) -o $(NAME)
+	$(CC) $(SRCS) $(CFLAGS) $(LDFLAGS) $(LMLXFLAGS) -o $(NAME)
 
 # MLX LIBS
 $(MLX) :

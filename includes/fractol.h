@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 13:03:03 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/21 17:20:15 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:29:59 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ enum color_index {
     NUM_COLORS
 };
 
-extern const uint32_t hexcolors[];
+extern const uint32_t g_hexcolors[];
 
 // Structs
 typedef struct s_complex
