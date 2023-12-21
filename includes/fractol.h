@@ -130,6 +130,9 @@ void print_complex(t_complex z);
 /* ... Math Utils ...*/
 double scale_between(double unscaled, double min_limit, double max_limit, double        min,     double max);
 void zoom_to_mouse(double x, double y, t_fractal *fractal);
+t_complex divide_complex(t_complex a, t_complex b);
+t_complex rest_complex(t_complex a, t_complex b);
+t_complex multiply_complex(t_complex c1, t_complex c2);
 /* ... Randomize ... */
 void set_seed();
 int randomize(int min, int max);

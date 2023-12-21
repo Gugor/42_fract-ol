@@ -75,7 +75,7 @@ clean:
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(MAKE) -C $(PRINTF_DIR) fclean
 	$(MAKE) -C $(MLX_DIR)/build clean
-	@rm -vf $(SRC_OBJS)
+	@rm -vf $(OBJS)
 
 fclean: clean
 	@echo ":: Removing execs"
