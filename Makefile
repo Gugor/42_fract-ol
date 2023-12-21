@@ -24,14 +24,14 @@ MLX_LIB			= $(abspath $(MLX_DIR)/build/libmlx42.a)
 
 # Compiler
 CC 			:= gcc
-CFLAGS 		:= -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR)/include 
+CFLAGS 		:= -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR)/include 
 LDFLAGS 	:= -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf 
 LMLXFLAGS	:= -L$(MLX_DIR)/build -lmlx42 -ldl -lglfw -pthread -lm
 ## -L$(MLX) -lmlx -framework OpenGL -framework AppKit  -Wdeprecated-declarations
 
 # Files
-SRCS_FILES	= fractol.c
-INCS_FILES	= fractol.h libft.h ft_printf.h 
+SRCS_FILES	= fractol.c math-utils.c complex_nums.c render.c init.c events.c events2.c  randomize.c
+INCS_FILES	= fractol.h libft.h ft_printf.h events.h
 
 #Route to Includes
 SRCS		= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
@@ -65,6 +65,10 @@ $(LIBFT) :
 $(PRINTF) :
 	@echo "=== Printf compiling"
 	$(MAKE) -C $(PRINTF_DIR)
+
+# Start or Run the program
+run : $(NAME)
+	./$(NAME)
 
 clean:
 	@echo ":: Removing object files..."
