@@ -10,7 +10,7 @@ LIBFT	= libft
 # Directories 
 LIBFT_DIR	:= ./libs/libft
 PRINTF_DIR	:= ./libs/ft_printf
-MLX_DIR		:= ./libs/minilix
+MLX_DIR		:= ./libs/MLX42
 INCS_DIR	:= ./includes
 SRCS_DIR 	:= ./srcs
 
@@ -20,18 +20,18 @@ MF			:= Makefile
 # Bibliotecas
 LIBFT_LIB		= $(abspath $(LIBFT_DIR)/libft.a)
 PRINTF_LIB		= $(abspath $(PRINTF_DIR)/libftprintf.a)
-MLX_LIB			= $(abspath $(MLX_DIR)/libmlx.a)
+MLX_LIB			= $(abspath $(MLX_DIR)/build/libmlx42.a)
 
 # Compiler
 CC 			:= gcc
 CFLAGS 		:= -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR)/include 
-CCFLAGS 	:= -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(MLX_DIR) 
 LDFLAGS 	:= -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf 
-LMLXFLAGS	:= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit 
+LMLXFLAGS	:= -L$(MLX_DIR)/build -lmlx42 -ldl -lglfw -pthread -lm
+## -L$(MLX) -lmlx -framework OpenGL -framework AppKit  -Wdeprecated-declarations
 
 # Files
-SRCS_FILES	= fractol.c  math-utils.c complex_nums.c render.c init.c randomize.c #events.c events2.c 
-INCS_FILES	= fractol.h libft.h ft_printf.h #events.h
+SRCS_FILES	= fractol.c math-utils.c complex_nums.c render.c init.c events.c events2.c  randomize.c
+INCS_FILES	= fractol.h libft.h ft_printf.h events.h
 
 #Route to Includes
 SRCS		= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
@@ -42,7 +42,7 @@ OBJS		= $(SRCS_DIR/%.c=%.o)
 
 
 # Basic Rules
-all: $(PRINTF) $(LIBFT) $(MLX) $(NAME)
+all: $(LIBFT) $(PRINTF) $(MLX) $(NAME)
 
 # Compilation of Object files
 $(OBJS): $(SRCS)
@@ -50,12 +50,12 @@ $(OBJS): $(SRCS)
 
 # Target Compilation
 $(NAME) : $(MF) $(OBJS) $(INCS)  
-	$(CC) $(SRCS) $(CFLAGS) $(LMLXFLAGS) -o $(NAME)
+	$(CC) $(SRCS) $(CFLAGS) $(LDFLAGS) $(LMLXFLAGS) -o $(NAME)
 
 # MLX LIBS
 $(MLX) :
 	@echo "=== MLX Lib compiling"
-	@make -C $(MLX_DIR)
+	@cmake $(MLX_DIR) -B $(MLX_DIR)/build && make -C $(MLX_DIR)/build -j4
 
 # Complilacion LIBFT
 $(LIBFT) :
@@ -74,7 +74,7 @@ clean:
 	@echo ":: Removing object files..."
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(MAKE) -C $(PRINTF_DIR) fclean
-	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLX_DIR)/build clean
 	@rm -vf $(SRC_OBJS)
 
 fclean: clean

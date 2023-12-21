@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 13:03:03 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/20 13:03:11 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:20:15 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <math.h>
 # include "libft.h"
 # include "ft_printf.h"
-# include "../libs/MLX42/include/MLX42/MLX42.h"
+# include "../libs/minilix/mlx.h"
 // Bytes Per Pixel. Since each pixel is represented as an integer, it will be four bytes for four channels.
 # ifndef BPP
 #  define BPP sizeof(int32_t)
@@ -112,11 +112,26 @@ typedef struct s_complex
 	double y; // imaginary number i^2= -1
 } t_complex;
 
+/**
+ * Values from mlx_get_data_addr()
+ */
+typedef struct mlx_img
+{
+	void *img;
+	char *pixels;
+	int bpp;
+	int endian;
+	int line_len;
+
+} mlx_img_t;
+
+
 typedef struct s_fractal
 {	
 	char	*title;
-	mlx_t 	*mlx; 
-	mlx_image_t	*img;
+	void	*mlx;
+	void	*mlx_win;
+	mlx_img_t	*img;
 	double limit;
 	int definition;
 	int colors[4];
@@ -131,18 +146,18 @@ typedef struct s_fractal
 // Functions
 
 /* ... Init ...*/
-void fractal_init(t_fractal *fractal);
+ void fractal_init(t_fractal *fractal);
 /* ... Render ... */
-void fractal_render(t_fractal *fractal);
-void refresh_image(t_fractal *fractal);
+ void fractal_render(t_fractal *fractal);
+ void refresh_image(t_fractal *fractal);
 /* ... Complex Numbers ... */
-t_complex sum_complex(t_complex z1, t_complex z2);
-t_complex square_complex(t_complex z);
-void print_complex(t_complex z);
+ t_complex sum_complex(t_complex z1, t_complex z2);
+ t_complex square_complex(t_complex z);
+ void print_complex(t_complex z);
 /* ... Math Utils ...*/
-double scale_between(double unscaled, double min_limit, double max_limit, double        min,     double max);
-void zoom_to_mouse(double x, double y, t_fractal *fractal);
+ double scale_between(double unscaled, double min_limit, double max_limit, double max);
+ void zoom_to_mouse(double x, double y, t_fractal *fractal);
 /* ... Randomize ... */
-void set_seed();
-int randomize(int min, int max);
+ void set_seed();
+ int randomize(int min, int max);
 #endif

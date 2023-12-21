@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:59:58 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/20 13:00:04 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:06:35 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ void data_init(t_fractal *fractal)
 /**
  * Let listen to events
  *
- */
+ *
 static void events_init(t_fractal *fractal)
 {
-	mlx_key_hook(fractal->mlx, &handle_key, fractal);
-	mlx_scroll_hook(fractal->mlx, &scrollmouse, fractal);
-}
+	//mlx_key_hook(fractal->mlx, &handle_key, fractal);
+	//mlx_scroll_hook(fractal->mlx, &scrollmouse, fractal);
+}*/
+
+static void malloc_error()
+{
+	perror("Memory allocation error");
+	exit(EXIT_FAILURE);
+} 
 
 /**
  * We init our fractal
@@ -47,14 +53,27 @@ void fractal_init(t_fractal *fractal)
 	fractal->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, fractal->title, 1);
 	if (fractal->mlx == NULL)
 	{
-		mlx_terminate(fractal->mlx);
+		malloc_error();
 		exit(EXIT_FAILURE);
 	}
-	fractal->img = mlx_new_image(fractal->mlx, WIN_WIDTH, WIN_HEIGHT);
-	ft_memset(fractal->img->pixels, WHITE, 
-			fractal->img->width * fractal->img->height * BPP);	
-	mlx_image_to_window(fractal->mlx, fractal->img, fractal->shift_x, fractal->shift_y);
-
-	events_init(fractal); 
+	fractal->mlx_win = mlx_new_window(fractal->mlx, WIN_WIDTH, WIN_HEIGHT, fractal->title);
+	if (fractal->mlx_win == NULL)
+	{
+		mlx_destroy_window(fractal->mlx, fractal->mlx_win);
+		free(fractal->mlx);
+		malloc_error();
+	}
+	fractal->img->img = mlx_new_image(fractal->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (fractal->img->img)
+	{
+		mlx_destroy_window(fractal->mlx, fractal->mlx_win);
+		free(fractal->mlx);
+		malloc_error();
+	}
+	fractal->img->pixels = mlx_get_data_addr(fractal->img->img,
+			&fractal->img->bpp,
+			&fractal->img->line_len,
+			&fractal->img->endian);
+	//events_init(fractal); 
 	data_init(fractal); 
 }

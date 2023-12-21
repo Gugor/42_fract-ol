@@ -6,17 +6,11 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:59:09 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/20 16:22:12 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:16:56 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-const uint32_t	g_hexcolors[] = {
-	0x000000, 0xFFFFFF, 0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0xFF00FF,
-	0x00FFFF, 0xFFA500, 0x800080, 0xFFC0CB, 0xA52A2A, 0x808080, 0x3a405a,
-	0xaec5eb, 0xf9dec9, 0xe9afa3, 0x685044, 0x11151c, 0x212d40, 0x364156,
-	0x7d4e57, 0xd66853};
 
 /**
  * Close Fractol

@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 12:58:21 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/20 13:20:48 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:14:00 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * Adds two complex numbers
  *
  */
-t_comple	sum_complex(t_complex z1, t_complex z2)
+t_complex	sum_complex(t_complex z1, t_complex z2)
 {
 	t_complex	result;
 

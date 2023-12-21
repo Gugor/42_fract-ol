@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 13:01:08 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/20 13:01:12 by hmontoya         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:49:59 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,18 @@ static void select_fractal_set(t_complex *z, t_complex *c, t_fractal *fractal)
 	}
 }
 
+/**
+ * Put colored pixel in image 
+ *
+ */
 
+static void mlx_put_pixel(mlx_img_t	*img, int x, int y , uint32_t color) 
+{
+	int pixelpos;
+
+	pixelpos = (y * img->line_len) + (x * img->bpp * 8);
+	*(unsigned int * )(img->pixels + pixelpos) = color;
+}
 /**
  * Maps the a dimention into another by scaling it.
  *	z = z^2 + c
@@ -45,21 +56,21 @@ static void  calculate_pixel(int x, int y, t_fractal *fractal)
 
 	iterations = 0;
 
-	z.x = (scale_between(x, -2, +2, 0, WIN_WIDTH - 1) * fractal->zoom) + fractal->shift_x;
-	z.y = (scale_between(y, +2, -2, 0, WIN_HEIGHT - 1) * fractal->zoom) + fractal->shift_y;
+	z.x = (scale_between(x, -2, +2, WIN_WIDTH - 1) * fractal->zoom) + fractal->shift_x;
+	z.y = (scale_between(y, +2, -2, WIN_HEIGHT - 1) * fractal->zoom) + fractal->shift_y;
 	
 	select_fractal_set(&z, &c, fractal);
 
-	mlx_put_pixel(fractal->img, x, y, hexcolors[fractal->colors[2]]);
 	while (iterations < fractal->definition)
 	{
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > fractal->limit)
 		{
-			color = (uint32_t)scale_between(iterations, fractal->colors[0], fractal->colors[1], 0, fractal->definition);
+			color = (uint32_t)scale_between(iterations, fractal->colors[0], fractal->colors[1], fractal->definition);
 			mlx_put_pixel(fractal->img, x, y, color);	
 			return ;
 		}
+		mlx_put_pixel(fractal->img, x, y, hexcolors[fractal->colors[2]]);
 		iterations++;
 	}
 }
@@ -82,4 +93,6 @@ void fractal_render(t_fractal *fractal)
 			calculate_pixel(x, y, fractal);
 		}
 	}
+	mlx_put_image_to_window(fractal->mlx, fractal->mlx_win,
+		fractal->img->img, 0, 0);
 }
