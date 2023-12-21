@@ -15,7 +15,7 @@
 /**
  * Free memory and clear window
  */
-int	ft_free(t_fractal *frac)
+int	ft_memfree(t_fractal *frac)
 {
 	if (frac && frac->mlx_win)
 		mlx_destroy_window(frac->mlx, frac->mlx_win);
@@ -77,10 +77,10 @@ static void  calculate_pixel(int x, int y, t_fractal *fractal)
 		if ((z.x * z.x) + (z.y * z.y) > fractal->limit)
 		{
 			color = (uint32_t)scale_between(iterations, fractal->colors[0], fractal->colors[1], fractal->definition);
-			mlx_put_pixel(fractal->img, x, y, color);	
+			mlx_put_pixel(&fractal->img, x, y, color);	
 			return ;
 		}
-		mlx_put_pixel(fractal->img, x, y, g_hexcolors[fractal->colors[2]]);
+		mlx_put_pixel(&fractal->img, x, y, g_hexcolors[fractal->colors[2]]);
 		iterations++;
 	}
 }
@@ -104,5 +104,5 @@ void fractal_render(t_fractal *fractal)
 		}
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->mlx_win,
-		fractal->img->img, 0, 0);
+		fractal->img.img, 0, 0);
 }

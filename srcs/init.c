@@ -60,20 +60,20 @@ void fractal_init(t_fractal *fractal)
 	if (fractal->mlx_win == NULL)
 	{
 		mlx_destroy_window(fractal->mlx, fractal->mlx_win);
-		free(fractal->mlx);
+		ft_memfree(fractal);
 		malloc_error();
 	}
-	fractal->img->img = mlx_new_image(fractal->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (fractal->img->img)
+	fractal->img.img = mlx_new_image(fractal->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (fractal->img.img)
 	{
 		mlx_destroy_window(fractal->mlx, fractal->mlx_win);
-		free(fractal->mlx);
+		ft_memfree(fractal);
 		malloc_error();
 	}
-	fractal->img->pixels = mlx_get_data_addr(fractal->img->img,
-			&fractal->img->bpp,
-			&fractal->img->line_len,
-			&fractal->img->endian);
+	fractal->img.pixels = mlx_get_data_addr(fractal->img.img,
+			&fractal->img.bpp,
+			&fractal->img.line_len,
+			&fractal->img.endian);
 	//events_init(fractal); 
 	data_init(fractal); 
 }

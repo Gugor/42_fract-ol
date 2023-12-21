@@ -131,7 +131,7 @@ typedef struct s_fractal
 	char	*title;
 	void	*mlx;
 	void	*mlx_win;
-	mlx_img_t	*img;
+	mlx_img_t	img;
 	double limit;
 	int definition;
 	int colors[4];
@@ -150,7 +150,7 @@ typedef struct s_fractal
 /* ... Render ... */
  void fractal_render(t_fractal *fractal);
  void refresh_image(t_fractal *fractal);
- int ft_free(t_fractal *frac)
+ int ft_memfree(t_fractal *frac);
 /* ... Complex Numbers ... */
  t_complex sum_complex(t_complex z1, t_complex z2);
  t_complex square_complex(t_complex z);
