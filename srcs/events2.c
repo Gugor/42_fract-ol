@@ -11,29 +11,31 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "events.h"
 
 /**
  * Change the precition of the fractal rendered
  *
  */
-static void	change_definition(mlx_key_data_t keydata, void* param)
+
+static void	change_definition(int keydata, void* param)
 {
 	t_fractal *fractal;
 	int definition;
 
 	fractal = (t_fractal *)param;
 	definition = 50;
-	if (keydata.key == MLX_KEY_PERIOD && keydata.action == MLX_PRESS)
+	if (keydata == KEY_PERIOD)
 	{
-		ft_printf("\033[1;32m=>\033[0m Keypressed: \033[1;34m%d\033[0m\n",keydata.key);
-		ft_printf(" \033[1;34m::\033[0m Changing definition from \033[1;31m%d\033[0m to \033[1;31m%d\033[0m\n", fractal->definition, fractal->definition + definition);
+		ft_printf("\033[1;32m=>\033[0m Keypressed: \033[1;34m%d\033[0m\n",keydata);
+		printf(" \033[1;34m::\033[0m Changing definition from \033[1;31m%d\033[0m to \033[1;31m%d\033[0m\n", fractal->definition, fractal->definition + definition);
 		fractal->definition += definition;
 		fractal_render(fractal);
 	}
-	if(keydata.key == MLX_KEY_COMMA && keydata.action == MLX_PRESS)
+	if(keydata == KEY_COMMA)
 	{
-		ft_printf("\033[1;32m=>\033[0m Keypressed: \033[1;34m%d\033[0m\n",keydata.key);
-		ft_printf(" \033[1;34m::\033[0m Changing definition from \033[1;31m%d\033[0m to \033[1;31m%d\033[0m\n", fractal->definition, fractal->definition - definition);
+		ft_printf("\033[1;32m=>\033[0m Keypressed: \033[1;34m%d\033[0m\n",keydata);
+		printf(" \033[1;34m::\033[0m Changing definition from \033[1;31m%d\033[0m to \033[1;31m%d\033[0m\n", fractal->definition, fractal->definition - definition);
 		fractal->definition -= definition;
 		fractal_render(fractal);
 	}
@@ -44,15 +46,18 @@ static void	change_definition(mlx_key_data_t keydata, void* param)
  *  Handel key
  *
  */
-void	handle_key(mlx_key_data_t keydata, void* param)
+int	handle_key(int keysim, void* param)
 {
 	t_fractal *fractal;
 
+	//printf("[]-%d\n", keysim);
 	fractal = (t_fractal *)param;
-	move_fractal(keydata, fractal);
-	shuffle_colors(keydata, fractal);
-	change_definition(keydata, fractal);
-	close_fractol(keydata, fractal);
+	close_fractol(keysim, fractal);
+	move_fractal(keysim, fractal);
+	shuffle_colors(keysim, fractal);
+	change_definition(keysim, fractal);
+	return (0);
 
 }
+
 

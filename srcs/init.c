@@ -12,6 +12,7 @@
 
 #include "fractol.h"
 #include "events.h"
+#include <X11/X.h>
 /**
  * Fractal data init
  *
@@ -24,24 +25,26 @@ void data_init(t_fractal *fractal)
 	fractal->colors[2] = COLOR_PALE_PINK;
 	fractal->zoom = 1.0;
 	fractal->limit = 4.0; 
-	fractal->offspeed = 0.1;
-	fractal->shift_x = 0;
-	fractal->shift_y = 0;
+	fractal->offspeed = 0.01;
+	fractal->shift_x = 0.0;
+	fractal->shift_y = 0.0;
 }
 /**
  * Let listen to events
- *
- *
+ * void mlx_hook(mlx_win_list_t *win_ptr, int x_event, int x_mask, int (*f)(), void *param)
+
+ */
 static void events_init(t_fractal *fractal)
 {
-	//mlx_key_hook(fractal->mlx, &handle_key, fractal);
-	//mlx_scroll_hook(fractal->mlx, &scrollmouse, fractal);
-}*/
+	mlx_hook(fractal->mlx_win, 2, KeyPressMask, handle_key, fractal);
+	mlx_hook(fractal->mlx_win, ButtonPress, ButtonPressMask, scrollmouse, fractal);
+	mlx_hook(fractal->mlx_win, DestroyNotify, StructureNotifyMask, close_fractol, fractal);
+}
 
 static void malloc_error()
 {
 	perror("Memory allocation error");
-	exit(EXIT_FAILURE);
+	return ;
 } 
 
 /**
@@ -59,21 +62,19 @@ void fractal_init(t_fractal *fractal)
 	fractal->mlx_win = mlx_new_window(fractal->mlx, WIN_WIDTH, WIN_HEIGHT, fractal->title);
 	if (fractal->mlx_win == NULL)
 	{
-		mlx_destroy_window(fractal->mlx, fractal->mlx_win);
-		ft_memfree(fractal);
 		malloc_error();
+		ft_terminate(fractal);
 	}
 	fractal->img.img = mlx_new_image(fractal->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (fractal->img.img)
+	if (fractal->img.img == NULL)
 	{
-		mlx_destroy_window(fractal->mlx, fractal->mlx_win);
-		ft_memfree(fractal);
 		malloc_error();
+		ft_terminate(fractal);
 	}
 	fractal->img.pixels = mlx_get_data_addr(fractal->img.img,
 			&fractal->img.bpp,
 			&fractal->img.line_len,
 			&fractal->img.endian);
-	//events_init(fractal); 
+	events_init(fractal); 
 	data_init(fractal); 
 }

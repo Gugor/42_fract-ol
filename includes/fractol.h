@@ -74,6 +74,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
+#include "events.h"
 
 // Globals
 enum color_index {
@@ -125,7 +126,6 @@ typedef struct mlx_img
 
 } mlx_img_t;
 
-
 typedef struct s_fractal
 {	
 	char	*title;
@@ -146,19 +146,26 @@ typedef struct s_fractal
 // Functions
 
 /* ... Init ...*/
- void fractal_init(t_fractal *fractal);
+ void   fractal_init(t_fractal *fractal);
 /* ... Render ... */
- void fractal_render(t_fractal *fractal);
- void refresh_image(t_fractal *fractal);
- int ft_memfree(t_fractal *frac);
+ void   fractal_render(t_fractal *fractal);
+ void   refresh_image(t_fractal *fractal);
+ int    ft_terminate(t_fractal *frac);
+ void   mlx_put_pixel(mlx_img_t	*img, int x, int y , uint32_t color);
+ void   calc_mandelbrot(int x, int y, t_fractal *fractal);
+ void   calc_julia(int x, int y, t_fractal *fractal);
+ void calc_burningships(int x, int y, t_fractal *fractal);
 /* ... Complex Numbers ... */
- t_complex sum_complex(t_complex z1, t_complex z2);
- t_complex square_complex(t_complex z);
- void print_complex(t_complex z);
+ t_complex  sum_complex(t_complex z1, t_complex z2);
+ t_complex  square_complex(t_complex z);
+ void       print_complex(t_complex z);
 /* ... Math Utils ...*/
- double scale_between(double unscaled, double min_limit, double max_limit, double max);
- void zoom_to_mouse(double x, double y, t_fractal *fractal);
+ double     scale_between(double unscaled, double min_limit, double max_limit, double max);
+ void       zoom_to_mouse(int x, int y, t_fractal *fractal);
 /* ... Randomize ... */
- void set_seed();
- int randomize(int min, int max);
+ void       set_seed();
+ int        randomize(int min, int max);
+ /* ... Events Handlers ...*/
+ void	move_fractal(int keydata, t_fractal *fractal);
+void	shuffle_colors(int keydata, t_fractal *fractal);
 #endif

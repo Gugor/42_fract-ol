@@ -10,11 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fractol.h"
 #ifndef EVENTS_H
 # define EVENTS_H
-
+// Macros
+# define KEY_ESCAPE 53
+# define KEY_UP     126
+# define KEY_DOWN   125
+# define KEY_LEFT   123
+# define KEY_RIGHT  124
+# define KEY_E      14
+# define KEY_PERIOD 47
+# define KEY_COMMA  43 
 // Funtion Events
-//void scrollmouse(double xdelta, double ydelta, void *param);
-//void handle_key(mlx_key_data_t keydata, void* param);
-//void close_fractol(void *param);
+int scrollmouse(int button, int x, int y, void *param);
+int handle_key(int keysim, void *param);
+int close_fractol(int keysim, void *param);
 #endif

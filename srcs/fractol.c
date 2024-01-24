@@ -26,6 +26,7 @@ int32_t	main(int argc, char **argv)
 	set_seed();
 
 	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10))
+			|| (argc == 2 && !ft_strncmp(argv[1], "burningships", 12))
 			|| (argc == 4 && !ft_strncmp(argv[1], "julia", 5)))
 	{
 		fractal.title = argv[1];

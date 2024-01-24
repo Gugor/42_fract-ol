@@ -28,18 +28,16 @@
  * Calculate de image desplacment to the mouse position 
  * (mousepos - centerofscreen) / windowswidth) * zoom 
  */
-void zoom_to_mouse(double x, double y, t_fractal *fractal)
+void zoom_to_mouse(int x, int y, t_fractal *fractal)
 {
 	if (x > 0)
-		fractal->shift_x += (x - (WIN_WIDTH / 2)) / WIN_WIDTH * fractal->zoom;
+		fractal->shift_x += ((double)x - (WIN_WIDTH / 2)) / WIN_WIDTH * fractal->zoom;
 	else
-		fractal->shift_x -= (x - (WIN_WIDTH / 2)) / WIN_WIDTH * fractal->zoom;
+		fractal->shift_x -= ((double)x - (WIN_WIDTH / 2)) / WIN_WIDTH * fractal->zoom;
 	if (y > 0)
-		fractal->shift_y -= (y - (WIN_HEIGHT / 2)) / WIN_HEIGHT * fractal->zoom;
+		fractal->shift_y -= ((double)y - (WIN_HEIGHT / 2)) / WIN_HEIGHT * fractal->zoom;
 	else
-		fractal->shift_y += (y - (WIN_HEIGHT / 2)) / WIN_HEIGHT * fractal->zoom;
-
-
+		fractal->shift_y += ((double)y - (WIN_HEIGHT / 2)) / WIN_HEIGHT * fractal->zoom;
 }
 
 /**

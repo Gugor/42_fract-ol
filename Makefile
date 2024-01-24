@@ -30,8 +30,9 @@ LDFLAGS 	:= -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf
 LMLXFLAGS	:= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit 
 
 # Files
-SRCS_FILES	= fractol.c  math-utils.c complex_nums.c render.c init.c randomize.c #events.c events2.c 
-INCS_FILES	= fractol.h libft.h ft_printf.h #events.h
+SRCS_FILES	= fractol.c  math-utils.c complex_nums.c render.c init.c randomize.c events.c \
+			events2.c mandelbrot.c julia.c burningships.c 
+INCS_FILES	= fractol.h libft.h ft_printf.h events.h
 
 #Route to Includes
 SRCS		= $(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
