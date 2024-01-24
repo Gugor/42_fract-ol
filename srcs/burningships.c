@@ -27,10 +27,12 @@ void  calc_burningships(int x, int y, t_fractal *fractal)
 	iterations = 0;
     c.x = 0.0;
 	c.y = 0.0;
-	c.x = fabs((scale_between(x, -2, +2, WIN_WIDTH - 1) * fractal->zoom) + fractal->shift_x);
-	c.y = fabs((scale_between(y, +2, -2, WIN_HEIGHT - 1) * fractal->zoom) + fractal->shift_y);
+	c.x = scale_between(x, -2, +2, WIN_WIDTH - 1) * fractal->zoom + fractal->shift_x;
+	c.y = scale_between(y, +2, -2, WIN_HEIGHT - 1) * fractal->zoom + fractal->shift_y;
 	while (iterations < fractal->definition)
 	{
+		z.x = fabs(z.x);
+		z.y = fabs(z.y);
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > fractal->limit)
 		{
