@@ -24,12 +24,12 @@ void  calc_burningships(int x, int y, t_fractal *fractal)
 	int iterations;
 	uint32_t color;
 
-	iterations = 0;
+	iterations = -1;
     c.x = 0.0;
 	c.y = 0.0;
 	c.x = scale_between(x, -2, +2, WIN_WIDTH - 1) * fractal->zoom + fractal->shift_x;
 	c.y = scale_between(y, +2, -2, WIN_HEIGHT - 1) * fractal->zoom + fractal->shift_y;
-	while (iterations < fractal->definition)
+	while (++iterations < fractal->definition)
 	{
 		z.x = fabs(z.x);
 		z.y = fabs(z.y);
@@ -41,6 +41,5 @@ void  calc_burningships(int x, int y, t_fractal *fractal)
 			return ;
 		}
 		mlx_put_pixel(&fractal->img, x, y, g_hexcolors[fractal->colors[2]]);
-		iterations++;
 	}
 }

@@ -46,7 +46,8 @@ OBJS		= $(SRCS_DIR/%.c=%.o)
 all: $(PRINTF) $(LIBFT) $(MLX) $(NAME)
 
 # Compilation of Object files
-$(OBJS): $(SRCS)
+#$(OBJS): $(SRCS)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR) 
 	$(CC) -c $< $(CFLAGS) -o $@
 
 # Target Compilation
@@ -68,8 +69,14 @@ $(PRINTF) :
 	$(MAKE) -C $(PRINTF_DIR)
 
 # Start or Run the program
-run : $(NAME)
-	./$(NAME)
+run1 : $(NAME)
+	./$(NAME) "mandelbrot"
+
+run2 : $(NAME)
+	./$(NAME) "julia" -0.70176  -0.3842 
+
+run3 : $(NAME)
+	./$(NAME) "burningships"
 
 clean:
 	@echo ":: Removing object files..."
