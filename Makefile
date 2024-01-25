@@ -24,10 +24,13 @@ MLX_LIB			= $(abspath $(MLX_DIR)/libmlx.a)
 
 # Compiler
 CC 			:= gcc
-CFLAGS 		:= -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR)/include 
+CFLAGS 		:= -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR) -I$(MLX_DIR)/include -I/opt/X11/include 
 CCFLAGS 	:= -g -Wall -Wextra -Werror -I$(INCS_DIR) -I$(MLX_DIR) 
 LDFLAGS 	:= -L$(LIBFT_DIR) -lft -L$(PRINTF_DIR) -lftprintf 
-LMLXFLAGS	:= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit 
+LMLXFLAGS	:= -L$(MLX_DIR)  -lmlx -framework OpenGL -framework AppKit  
+#-lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL  
+# -lmlx -framework OpenGL -framework AppKit 
+
 
 # Files
 SRCS_FILES	= fractol.c  math-utils.c complex_nums.c render.c init.c randomize.c events.c \

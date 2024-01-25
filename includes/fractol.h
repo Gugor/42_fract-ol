@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 13:03:03 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/21 17:29:59 by hmontoya         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:41:54 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include "../libs/minilix/mlx.h"
-// Bytes Per Pixel. Since each pixel is represented as an integer, it will be four bytes for four channels.
 # ifndef BPP
 #  define BPP sizeof(int32_t)
 # endif
@@ -77,7 +76,7 @@
 #include "events.h"
 
 // Globals
-enum color_index {
+enum e_color_index {
     BLACK,
     WHITE,
     RED,

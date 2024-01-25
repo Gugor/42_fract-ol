@@ -6,7 +6,7 @@
 /*   By: hmontoya <hmontoya@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 13:00:20 by hmontoya          #+#    #+#             */
-/*   Updated: 2023/12/21 16:37:14 by hmontoya         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:44:33 by hmontoya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,11 @@
 void zoom_to_mouse(int x, int y, t_fractal *fractal)
 {
 	if (x > 0)
-		fractal->shift_x += ((double)x - (WIN_WIDTH / 2)) / WIN_WIDTH * fractal->zoom;
+		fractal->shift_x += ((double)x - (WIN_WIDTH * 0.5)) / WIN_WIDTH * fractal->zoom;
 	else
-		fractal->shift_x -= ((double)x - (WIN_WIDTH / 2)) / WIN_WIDTH * fractal->zoom;
+		fractal->shift_x -= ((double)x - (WIN_WIDTH * 0.5)) / WIN_WIDTH * fractal->zoom;
 	if (y > 0)
-		fractal->shift_y -= ((double)y - (WIN_HEIGHT / 2)) / WIN_HEIGHT * fractal->zoom;
+		fractal->shift_y -= ((double)y - (WIN_HEIGHT * 0.5)) / WIN_HEIGHT * fractal->zoom;
 	else
-		fractal->shift_y += ((double)y - (WIN_HEIGHT / 2)) / WIN_HEIGHT * fractal->zoom;
+		fractal->shift_y += ((double)y - (WIN_HEIGHT * 0.5)) / WIN_HEIGHT * fractal->zoom;
 }
-
-/**
- * Print a complex number type
- * @dev puropuses
- */
